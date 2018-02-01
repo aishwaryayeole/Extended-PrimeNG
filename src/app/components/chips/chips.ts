@@ -29,17 +29,19 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 </li>
             </ul>
         </div>
-        <i *ngIf="loading" class="ui-autocomplete-loader fa fa-circle-o-notch fa-spin fa-fw"></i><button #ddBtn type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled" (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
-        <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
-        <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
-         <li *ngFor="let i of FilteredSuggestionList; let idx = index" >
-          <p [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==i)}"
-          (mouseenter)="highlightOption=i" (mouseleave)="highlightOption=null" (click)="selectItem($event,i.name,inputtext)">{{i.name}}</p>
-          <span *ngIf="!itemTemplate">{{field ? objectUtils.resolveFieldData(option, field) : option}}</span>
-          <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option" [index]="idx"></ng-template>
-         </li>
-         <li *ngIf="noResults && emptyMessage" class="ui-autocomplete-list-item ui-corner-all">{{emptyMessage}}</li>
-        </ul>
+
+            <i *ngIf="loading" class="ui-autocomplete-loader fa fa-circle-o-notch fa-spin fa-fw"></i><button #ddBtn type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled" (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
+            <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
+            <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
+            <li *ngFor="let i of FilteredSuggestionList; let idx = index" >
+            <p [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==i)}"
+            (mouseenter)="highlightOption=i" (mouseleave)="highlightOption=null" (click)="selectItem($event,i.name,inputtext)">{{i.name}}</p>
+            <span *ngIf="!itemTemplate">{{field ? objectUtils.resolveFieldData(option, field) : option}}</span>
+            <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option" [index]="idx"></ng-template>
+            </li>
+            <li *ngIf="noResults && emptyMessage" class="ui-autocomplete-list-item ui-corner-all">{{emptyMessage}}</li>
+            </ul>
+
        </div>
         
     `,
@@ -50,6 +52,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     providers: [DomHandler,CHIPS_VALUE_ACCESSOR,ObjectUtils]
 })
 export class Chips implements AfterContentInit,ControlValueAccessor {
+
     @Input() scrollHeight: string = '150px';
 
     @Input() dataKey: string;
@@ -131,6 +134,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() emptyMessage: string;
     
     public itemTemplate: TemplateRef<any>;
+
     documentClickListener: any;
 
     highlightOption: any;
@@ -169,18 +173,10 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     suggestionsUpdated: boolean;
 
-
             
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef, public renderer: Renderer2) {
         this.suggestionList = [];
         this.FilteredSuggestionList= [];
-
-        this.suggestionList.push("item 1");
-        this.suggestionList.push("item 2");
-        this.suggestionList.push("item 3");
-        this.suggestionList.push("item 1");
-        this.suggestionList.push("item 1");
-
 
     }
     unbindDocumentClickListener() {

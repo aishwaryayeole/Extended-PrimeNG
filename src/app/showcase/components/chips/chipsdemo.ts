@@ -16,9 +16,8 @@ export class ChipsDemo {
     suggestions: any;
 
     filteredSuggestionMultiple: any[];
+
     filteredCountriesMultiple: any[];
-
-
 
     constructor(private countryService: CountryService) {
         this.suggestions = [];
